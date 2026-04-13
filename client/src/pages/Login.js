@@ -10,14 +10,14 @@ function Login() {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include", // ✅ ADD THIS
       body: JSON.stringify({ email, password }),
     });
 
     const data = await res.json();
 
-    if (data.token) {
-      localStorage.setItem("token", data.token);
-      window.location.href = "/dashboard";
+    if (res.ok) {
+      window.location.href = "/dashboard"; // ✅ redirect
     } else {
       alert(data.error);
     }
