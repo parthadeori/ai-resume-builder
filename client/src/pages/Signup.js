@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSignup = async () => {
     const res = await fetch("http://localhost:5000/api/auth/signup", {
@@ -11,6 +13,7 @@ function Signup() {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify({ name, email, password }),
     });
 
@@ -18,7 +21,7 @@ function Signup() {
 
     if (data.message) {
       alert("Signup successful");
-      window.location.href = "/";
+      navigate("/");
     } else {
       alert(data.error);
     }

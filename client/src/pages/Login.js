@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
   const handleLogin = async () => {
     const res = await fetch("http://localhost:5000/api/auth/login", {
       method: "POST",
@@ -17,7 +18,7 @@ function Login() {
     const data = await res.json();
 
     if (res.ok) {
-      window.location.href = "/dashboard"; // ✅ redirect
+      navigate("/dashboard");
     } else {
       alert(data.error);
     }
